@@ -9,6 +9,7 @@ const { phoneNumberFormatter } = require('./helpers/formatter');
 const fileUpload = require('express-fileupload');
 const axios = require('axios');
 const mime = require('mime-types');
+const request = require('request');
 
 const port = process.env.PORT || 3000;
 
@@ -62,7 +63,6 @@ client.on('message', msg => {
     msg.reply('Whatsapp api is work');
 
 
-    var request = require('request');
     console.log('request_success');
     var options = {
       'method': 'POST',
