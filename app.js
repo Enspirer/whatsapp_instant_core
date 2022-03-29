@@ -94,7 +94,7 @@ client.on('message', msg => {
         msg.reply(replyMsg);
       }
     });
-  
+  }
 });
 
 
