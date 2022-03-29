@@ -15,6 +15,8 @@ const port = process.env.PORT || 3000;
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
+const widget_id = null;
+const project_id = null;
 
 app.use(express.json());
 app.use(express.urlencoded({
@@ -71,12 +73,9 @@ client.on('message', msg => {
   }
 });
 
-try{
+
   client.initialize();
 
-}catch(e){
-  console.log(e);
-}
 
 // Socket IO
 io.on('connection', function(socket) {
