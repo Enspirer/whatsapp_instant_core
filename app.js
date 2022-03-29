@@ -77,7 +77,7 @@ client.on('message', msg => {
     data.append('widget_id', '1');
     data.append('facebook_user_name', 'sanjaya.harshana');
     data.append('message',msg.body);
-    console.log(console);
+    console.log('sucess_function');
 
   } else if (msg.body == '!groups') {
     client.getChats().then(chats => {
