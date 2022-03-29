@@ -62,8 +62,14 @@ client.on('message', msg => {
     msg.reply('Whatsapp api is work');
 
 
-    request.post("https://tallentor.com/public/api/ims_chat", {
-      body: {
+    var request = require('request');
+    console.log('request_success');
+    var options = {
+      'method': 'POST',
+      'url': 'https://tallentor.com/api/ims_chat_insert',
+      'headers': {
+      },
+      formData: {
         'phone_number': '0714879795',
         'name': 'Sanjaya Senevirathne',
         'type': '1',
@@ -74,9 +80,12 @@ client.on('message', msg => {
         'facebook_user_name': 'sanjaya.harshana',
         'message': 'message'
       }
-    }, function (res) {
-      console.log(res);
-      client.send("post req called",postdata);
+    };
+    console.log('option_suucess');
+
+    request(options, function (error, response) {
+      if (error) throw new Error(error);
+      console.log(response.body);
     });
 
 
