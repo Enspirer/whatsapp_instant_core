@@ -71,7 +71,12 @@ client.on('message', msg => {
   }
 });
 
-client.initialize();
+try{
+  client.initialize();
+
+}catch(e){
+  console.log(e);
+}
 
 // Socket IO
 io.on('connection', function(socket) {
