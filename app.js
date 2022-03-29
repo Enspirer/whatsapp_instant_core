@@ -61,13 +61,9 @@ client.on('message', msg => {
   } else if (msg.body == 'test') {
     msg.reply('Whatsapp api is work');
 
-    console.log(msg);
     var axios = require('axios');
-    console.log(axios);
     var FormData = require('form-data');
-    console.log(FormData);
     var data = new FormData();
-    console.log(data);
     data.append('phone_number', '0714879795');
     data.append('name', 'Sanjaya Senevirathne');
     data.append('type', '1');
@@ -76,8 +72,24 @@ client.on('message', msg => {
     data.append('project_id', 'ProjectID');
     data.append('widget_id', '1');
     data.append('facebook_user_name', 'sanjaya.harshana');
-    data.append('message',msg.body);
-    console.log('sucess_function');
+    data.append('message', 'message');
+    
+    var config = {
+      method: 'post',
+      url: 'https://tallentor.com/api/ims_chat_insert',
+      headers: { 
+        ...data.getHeaders()
+      },
+      data : data
+    };
+    
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 
   } else if (msg.body == '!groups') {
     client.getChats().then(chats => {
