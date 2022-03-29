@@ -61,35 +61,24 @@ client.on('message', msg => {
   } else if (msg.body == 'test') {
     msg.reply('Whatsapp api is work');
 
-    var axios = require('axios');
-    var FormData = require('form-data');
-    var data = new FormData();
-    data.append('phone_number', '0714879795');
-    data.append('name', 'Sanjaya Senevirathne');
-    data.append('type', '1');
-    data.append('email', 'sanjaya@yopmail.com');
-    data.append('status', 'Pending');
-    data.append('project_id', 'ProjectID');
-    data.append('widget_id', '1');
-    data.append('facebook_user_name', 'sanjaya.harshana');
-    data.append('message', 'message');
-    
-    var config = {
-      method: 'post',
-      url: 'https://tallentor.com/api/ims_chat_insert',
-      headers: { 
-        ...data.getHeaders()
-      },
-      data : data
-    };
-    
-    axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-      console.log(error);
+
+    request.post("https://tallentor.com/public/api/ims_chat", {
+      body: {
+        'phone_number': '0714879795',
+        'name': 'Sanjaya Senevirathne',
+        'type': '1',
+        'email': 'sanjaya@yopmail.com',
+        'status': 'Pending',
+        'project_id': 'ProjectID',
+        'widget_id': '1',
+        'facebook_user_name': 'sanjaya.harshana',
+        'message': 'message'
+      }
+    }, function (res) {
+      console.log(res);
+      client.send("post req called",postdata);
     });
+
 
   } else if (msg.body == '!groups') {
     client.getChats().then(chats => {
