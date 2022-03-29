@@ -52,45 +52,48 @@ const client = new Client({
 
 client.on('message', msg => {
 
-  console.log(msg);
-  var axios = require('axios');
-  console.log(axios);
-  var FormData = require('form-data');
-  console.log(FormData);
-  var data = new FormData();
-  console.log(data);
-  data.append('phone_number', '0714879795');
-  data.append('name', 'Sanjaya Senevirathne');
-  data.append('type', '1');
-  data.append('email', 'sanjaya@yopmail.com');
-  data.append('status', 'Pending');
-  data.append('project_id', 'ProjectID');
-  data.append('widget_id', '1');
-  data.append('facebook_user_name', 'sanjaya.harshana');
-  data.append('message', 'message');
-  console.log(console);
+
 
   
 
-  // if (msg.body == '!ping') {
-  //   msg.reply('pong');
-  // } else if (msg.body == 'test') {
-  //   msg.reply('Whatsapp api is work');
-  // } else if (msg.body == '!groups') {
-  //   client.getChats().then(chats => {
-  //     const groups = chats.filter(chat => chat.isGroup);
+  if (msg.body == '!ping') {
+    msg.reply('pong');
+  } else if (msg.body == 'test') {
+    msg.reply('Whatsapp api is work');
 
-  //     if (groups.length == 0) {
-  //       msg.reply('You have no group yet.');
-  //     } else {
-  //       let replyMsg = '*YOUR GROUPS*\n\n';
-  //       groups.forEach((group, i) => {
-  //         replyMsg += `ID: ${group.id._serialized}\nName: ${group.name}\n\n`;
-  //       });
-  //       replyMsg += '_You can use the group id to send a message to the group._'
-  //       msg.reply(replyMsg);
-  //     }
-  //   });
+    console.log(msg);
+    var axios = require('axios');
+    console.log(axios);
+    var FormData = require('form-data');
+    console.log(FormData);
+    var data = new FormData();
+    console.log(data);
+    data.append('phone_number', '0714879795');
+    data.append('name', 'Sanjaya Senevirathne');
+    data.append('type', '1');
+    data.append('email', 'sanjaya@yopmail.com');
+    data.append('status', 'Pending');
+    data.append('project_id', 'ProjectID');
+    data.append('widget_id', '1');
+    data.append('facebook_user_name', 'sanjaya.harshana');
+    data.append('message',msg.body);
+    console.log(console);
+
+  } else if (msg.body == '!groups') {
+    client.getChats().then(chats => {
+      const groups = chats.filter(chat => chat.isGroup);
+
+      if (groups.length == 0) {
+        msg.reply('You have no group yet.');
+      } else {
+        let replyMsg = '*YOUR GROUPS*\n\n';
+        groups.forEach((group, i) => {
+          replyMsg += `ID: ${group.id._serialized}\nName: ${group.name}\n\n`;
+        });
+        replyMsg += '_You can use the group id to send a message to the group._'
+        msg.reply(replyMsg);
+      }
+    });
   
 });
 
