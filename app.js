@@ -52,33 +52,36 @@ const client = new Client({
 
 client.on('message', msg => {
 
-    var request = require('request');
-    var options = {
-      'method': 'POST',
-      'url': 'https://tallentor.com/api/ims_chat_insert',
-      'headers': {
-      },
-      formData: {
-        'phone_number': '0714879795',
-        'name': 'Sanjaya Senevirathne',
-        'type': '1',
-        'email': 'sanjaya@yopmail.com',
-        'status': 'Pending',
-        'project_id': 'ProjectID',
-        'widget_id': '1',
-        'facebook_user_name': 'sanjaya.harshana',
-        'message': 'hello'
-      }
-    };
-    request(options, function (error, response) {
-      if (error) throw new Error(error);
-      console.log(response.body);
-    });
-    
-
-  console.log(response.body);
-  console.log(response);
-
+  var axios = require('axios');
+  var FormData = require('form-data');
+  var data = new FormData();
+  data.append('phone_number', '0714879795');
+  data.append('name', 'Sanjaya Senevirathne');
+  data.append('type', '1');
+  data.append('email', 'sanjaya@yopmail.com');
+  data.append('status', 'Pending');
+  data.append('project_id', 'ProjectID');
+  data.append('widget_id', '1');
+  data.append('facebook_user_name', 'sanjaya.harshana');
+  data.append('message', 'message');
+  
+  var config = {
+    method: 'post',
+    url: 'https://tallentor.com/api/ims_chat_insert',
+    headers: { 
+      ...data.getHeaders()
+    },
+    data : data
+  };
+  
+  axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  
 
   // if (msg.body == '!ping') {
   //   msg.reply('pong');
