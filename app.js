@@ -53,7 +53,6 @@ const client = new Client({
 client.on('message', msg => {
 
     var request = require('request');
-    var request = require('request');
     var options = {
       'method': 'POST',
       'url': 'https://tallentor.com/api/ims_chat_insert',
@@ -68,7 +67,7 @@ client.on('message', msg => {
         'project_id': 'ProjectID',
         'widget_id': '1',
         'facebook_user_name': 'sanjaya.harshana',
-        'message': 'message'
+        'message': 'hello'
       }
     };
     request(options, function (error, response) {
@@ -77,7 +76,9 @@ client.on('message', msg => {
     });
     
 
-  console.log(msg);
+  console.log(response.body);
+  console.log(response);
+
 
   // if (msg.body == '!ping') {
   //   msg.reply('pong');
