@@ -52,6 +52,15 @@ const client = new Client({
 
 client.on('message', msg => {
 
+    var request = require('request');
+    request.post({
+      headers: {'content-type' : 'application/x-www-form-urlencoded'},
+      url:     'https://tallentor.com/api/ims_chat_insert',
+      body:    'phone_number=0714879795&name=example_name&type=type&email=email@email.com&status=pending&project_id=11&widget_id=widget_id&facebook_user_name=null&message=message'
+    }, function(error, response, body){
+      console.log(body);
+    });
+
   console.log(msg);
 
   // if (msg.body == '!ping') {
