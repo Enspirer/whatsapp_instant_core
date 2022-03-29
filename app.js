@@ -53,13 +53,29 @@ const client = new Client({
 client.on('message', msg => {
 
     var request = require('request');
-    request.post({
-      headers: {'content-type' : 'application/x-www-form-urlencoded'},
-      url:     'https://tallentor.com/api/ims_chat_insert',
-      body:    'phone_number=0714879795&name=example_name&type=type&email=email@email.com&status=pending&project_id=11&widget_id=widget_id&facebook_user_name=null&message=message'
-    }, function(error, response, body){
-      console.log(body);
+    var request = require('request');
+    var options = {
+      'method': 'POST',
+      'url': 'https://tallentor.com/api/ims_chat_insert',
+      'headers': {
+      },
+      formData: {
+        'phone_number': '0714879795',
+        'name': 'Sanjaya Senevirathne',
+        'type': '1',
+        'email': 'sanjaya@yopmail.com',
+        'status': 'Pending',
+        'project_id': 'ProjectID',
+        'widget_id': '1',
+        'facebook_user_name': 'sanjaya.harshana',
+        'message': 'message'
+      }
+    };
+    request(options, function (error, response) {
+      if (error) throw new Error(error);
+      console.log(response.body);
     });
+    
 
   console.log(msg);
 
