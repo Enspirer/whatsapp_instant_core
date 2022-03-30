@@ -16,8 +16,8 @@ const port = process.env.PORT || 3000;
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
-const widget_id = null;
-const project_id = null;
+const widget_id = 12;
+const project_id = 13;
 
 app.use(express.json());
 app.use(express.urlencoded({
@@ -63,12 +63,12 @@ client.on('message', msg => {
     formData: {
       'phone_number': msg.from,
       'name': 'Sanjaya Senevirathne',
-      'type': '1',
-      'email': null,
+      'type': 'WhatsApp',
+      'email': 'null',
       'status': 'Pending',
       'project_id': project_id,
       'widget_id': widget_id,
-      'facebook_user_name': null,
+      'facebook_user_name': 'null',
       'message':msg.body
     }
   };
