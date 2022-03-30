@@ -16,8 +16,8 @@ const port = process.env.PORT || 3000;
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
-const widget_id = 12;
-const project_id = 13;
+const widget_id = 1;
+const project_id = 1;
 
 app.use(express.json());
 app.use(express.urlencoded({
