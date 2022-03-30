@@ -64,11 +64,11 @@ client.on('message', msg => {
       'phone_number': msg.from,
       'name': 'Sanjaya Senevirathne',
       'type': '1',
-      'email': 'sanjaya@yopmail.com',
+      'email': null,
       'status': 'Pending',
-      'project_id': '1',
-      'widget_id': '1',
-      'facebook_user_name': 'sanjaya.harshana',
+      'project_id': project_id,
+      'widget_id': widget_id,
+      'facebook_user_name': null,
       'message':msg.body
     }
   };
