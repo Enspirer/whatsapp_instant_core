@@ -53,6 +53,7 @@ const client = new Client({
 
 client.on('message', msg => {
 
+
   console.log('request_success');
   var options = {
     'method': 'POST',
@@ -61,23 +62,18 @@ client.on('message', msg => {
     },
     formData: {
       'phone_number': '0714879795',
-      'name': 'Unknown',
+      'name': 'Sanjaya Senevirathne',
       'type': '1',
-      'email': null,
+      'email': 'sanjaya@yopmail.com',
       'status': 'Pending',
-      'project_id': project_id,
-      'widget_id': widget_id,
-      'facebook_user_name': null,
-      'message': msg.body
+      'project_id': '1',
+      'widget_id': '1',
+      'facebook_user_name': 'sanjaya.harshana',
+      'message':msg.body
     }
   };
   console.log('option_suucess');
-
-  request(options, function (error, response) {
-    if (error) throw new Error(error);
-    console.log(response.body);
-  });
-
+  console.log(msg);
   
 
   if (msg.body == '!ping') {
@@ -86,7 +82,12 @@ client.on('message', msg => {
     msg.reply('Whatsapp api is work');
 
 
-    
+
+
+    request(options, function (error, response) {
+      if (error) throw new Error(error);
+      console.log(response.body);
+    });
 
 
   } else if (msg.body == '!groups') {
