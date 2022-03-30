@@ -61,7 +61,7 @@ client.on('message', msg => {
     'headers': {
     },
     formData: {
-      'phone_number': '0714879795',
+      'phone_number': msg.from,
       'name': 'Sanjaya Senevirathne',
       'type': '1',
       'email': 'sanjaya@yopmail.com',
@@ -72,6 +72,11 @@ client.on('message', msg => {
       'message':msg.body
     }
   };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+  });
+
   console.log('option_suucess');
   console.log(msg);
   
@@ -84,11 +89,7 @@ client.on('message', msg => {
 
 
 
-    request(options, function (error, response) {
-      if (error) throw new Error(error);
-      console.log(response.body);
-    });
-
+  
 
   } else if (msg.body == '!groups') {
     client.getChats().then(chats => {
