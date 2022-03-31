@@ -58,7 +58,7 @@ const client = new Client({
 
 client.on('message', msg => {
 
-
+  // default_server_auth_status
   console.log('request_success');
   var options = {
     'method': 'POST',
@@ -139,6 +139,21 @@ io.on('connection', function(socket) {
     socket.emit('authenticated', 'Whatsapp is authenticated!');
     socket.emit('message', 'Whatsapp is authenticated!');
     console.log('AUTHENTICATED', session);
+    //Post Status to Tallentor
+    var options = {
+      'method': 'POST',
+      'url': 'https://tallentor.com/api/default_server_auth_status',
+      'headers': {
+      },
+      formData: {
+        'status': 'Authenticated',
+      }
+    };
+    request(options, function (error, response) {
+      if (error) throw new Error(error);
+      console.log(response.body);
+    });
+
     sessionCfg = session;
     fs.writeFile(SESSION_FILE_PATH, JSON.stringify(session), function(err) {
       if (err) {
@@ -148,10 +163,39 @@ io.on('connection', function(socket) {
   });
 
   client.on('auth_failure', function(session) {
+
+    var options = {
+      'method': 'POST',
+      'url': 'https://tallentor.com/api/default_server_auth_status',
+      'headers': {
+      },
+      formData: {
+        'status': 'Auth failure',
+      }
+    };
+    request(options, function (error, response) {
+      if (error) throw new Error(error);
+      console.log(response.body);
+    });
+
     socket.emit('message', 'Auth failure, restarting...');
   });
 
   client.on('disconnected', (reason) => {
+    var options = {
+      'method': 'POST',
+      'url': 'https://tallentor.com/api/default_server_auth_status',
+      'headers': {
+      },
+      formData: {
+        'status': 'Disconnected',
+      }
+    };
+    request(options, function (error, response) {
+      if (error) throw new Error(error);
+      console.log(response.body);
+    });
+
     socket.emit('message', 'Whatsapp is disconnected!');
     fs.unlinkSync(SESSION_FILE_PATH, function(err) {
         if(err) return console.log(err);
