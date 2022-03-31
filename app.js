@@ -15,8 +15,8 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 const options = {
-  key: fs.readFileSync(`certs/core_certs/certificate.crt`),
-  cert: fs.readFileSync(`certs/core_certs/ca_bundle.crt`)
+  key: fs.readFileSync(`certs/core_certs/private.key`),
+  cert: fs.readFileSync(`certs/core_certs/certificate.crt`)
 };
 
 const server = https.createServer(options,app);
