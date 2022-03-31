@@ -14,7 +14,12 @@ const request = require('request');
 const port = process.env.PORT || 3000;
 
 const app = express();
-const server = http.createServer(app);
+const options = {
+  key: fs.readFileSync(`test/fixtures/keys/agent2-key.pem`),
+  cert: fs.readFileSync(`test/fixtures/keys/agent2-cert.pem`)
+};
+
+const server = http.createServer(options,app);
 const io = socketIO(server);
 const widget_id = 1;
 const project_id = 1;
