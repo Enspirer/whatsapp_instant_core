@@ -15,8 +15,8 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 const options = {
-  key: fs.readFileSync(`test/fixtures/keys/agent2-key.pem`),
-  cert: fs.readFileSync(`test/fixtures/keys/agent2-cert.pem`)
+  key: fs.readFileSync(`certs/key.pem`),
+  cert: fs.readFileSync(`certs/cert.pem`)
 };
 
 const server = http.createServer(options,app);
