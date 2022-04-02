@@ -4,6 +4,7 @@ const { body, validationResult } = require('express-validator');
 const socketIO = require('socket.io');
 const qrcode = require('qrcode');
 const https = require('https');
+
 const fs = require('fs');
 const { phoneNumberFormatter } = require('./helpers/formatter');
 const fileUpload = require('express-fileupload');
@@ -16,7 +17,8 @@ const port = process.env.PORT || 3000;
 const app = express();
 const options = {
   key: fs.readFileSync(`certs/core_certs/private.key`),
-  cert: fs.readFileSync(`certs/core_certs/certificate.crt`)
+  cert: fs.readFileSync(`certs/core_certs/certificate.crt`),
+  ca: fs.readFileSync(`certs/core_certs/ca_bundle.crt`)
 };
 
 const server = https.createServer(options,app);
@@ -146,7 +148,7 @@ io.on('connection', function(socket) {
       'headers': {
       },
       formData: {
-        'status': 'Authenticated',
+        'status': 'Authenticated'
       }
     };
     request(options, function (error, response) {
@@ -170,7 +172,7 @@ io.on('connection', function(socket) {
       'headers': {
       },
       formData: {
-        'status': 'Auth failure',
+        'status': 'Auth failure'
       }
     };
     request(options, function (error, response) {
@@ -188,7 +190,7 @@ io.on('connection', function(socket) {
       'headers': {
       },
       formData: {
-        'status': 'Disconnected',
+        'status': 'Disconnected'
       }
     };
     request(options, function (error, response) {
