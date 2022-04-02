@@ -3,7 +3,7 @@ const express = require('express');
 const { body, validationResult } = require('express-validator');
 const socketIO = require('socket.io');
 const qrcode = require('qrcode');
-const https = require('https');
+const http = require('http');
 
 const fs = require('fs');
 const { phoneNumberFormatter } = require('./helpers/formatter');
@@ -15,13 +15,9 @@ const request = require('request');
 const port = process.env.PORT || 3000;
 
 const app = express();
-const options = {
-  key: fs.readFileSync(`certs/core_certs/private.key`),
-  cert: fs.readFileSync(`certs/core_certs/certificate.crt`),
-  ca: fs.readFileSync(`certs/core_certs/ca_bundle.crt`)
-};
 
-const server = https.createServer(options,app);
+
+const server = http.createServer(app);
 const io = socketIO(server);
 const widget_id = 1;
 const project_id = 1;
