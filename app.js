@@ -12,15 +12,15 @@ const axios = require('axios');
 const mime = require('mime-types');
 const request = require('request');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3100;
 
 const app = express();
 
 
 const server = http.createServer(app);
 const io = socketIO(server);
-const widget_id = 1;
-const project_id = 1;
+const widget_id = null;
+const project_id = null;
 
 app.use(express.json());
 app.use(express.urlencoded({
@@ -58,23 +58,44 @@ client.on('message', msg => {
 
   // default_server_auth_status
   console.log('request_success');
-  var options = {
-    'method': 'POST',
-    'url': 'https://tallentor.com/api/ims_chat_insert',
-    'headers': {
-    },
-    formData: {
-      'phone_number': msg.from,
-      'name': 'Sanjaya Senevirathne',
-      'type': 'WhatsApp',
-      'email': 'null',
-      'status': 'Pending',
-      'project_id': project_id,
-      'widget_id': widget_id,
-      'facebook_user_name': 'null',
-      'message':msg.body
-    }
-  };
+  if(project_id){
+    var options = {
+      'method': 'POST',
+      'url': 'https://tallentor.com/api/ims_chat_insert',
+      'headers': {
+      },
+      formData: {
+        'phone_number': msg.from,
+        'name': 'Sanjaya Senevirathne',
+        'type': 'WhatsApp',
+        'email': 'null',
+        'status': 'Pending',
+        'project_id': project_id,
+        'widget_id': widget_id,
+        'facebook_user_name': 'null',
+        'message':msg.body
+      }
+    };
+  }else{
+    var options = {
+      'method': 'POST',
+      'url': 'https://tallentor.com/api/ims_chat_insert',
+      'headers': {
+      },
+      formData: {
+        'phone_number': msg.from,
+        'name': 'Sanjaya Senevirathne',
+        'type': 'WhatsApp',
+        'email': 'null',
+        'status': 'Pending',
+        'project_id': project_id,
+        'widget_id': widget_id,
+        'facebook_user_name': 'null',
+        'message':msg.body
+      }
+    };
+  }
+ 
   request(options, function (error, response) {
     if (error) throw new Error(error);
     console.log(response.body);
@@ -138,15 +159,30 @@ io.on('connection', function(socket) {
     socket.emit('message', 'Whatsapp is authenticated!');
     console.log('AUTHENTICATED', session);
     //Post Status to Tallentor
-    var options = {
-      'method': 'POST',
-      'url': 'https://tallentor.com/api/default_server_auth_status',
-      'headers': {
-      },
-      formData: {
-        'status': 'Authenticated'
-      }
-    };
+
+    if(project_id){
+      var options = {
+        'method': 'POST',
+        'url': 'https://tallentor.com/api/project_server_auth_status',
+        'headers': {
+        },
+        formData: {
+          'status': 'Authenticated',
+          'project_id' : project_id
+        }
+      };
+    }else{
+      var options = {
+        'method': 'POST',
+        'url': 'https://tallentor.com/api/default_server_auth_status',
+        'headers': {
+        },
+        formData: {
+          'status': 'Authenticated'
+        }
+      };
+    }
+
     request(options, function (error, response) {
       if (error) throw new Error(error);
       console.log(response.body);
@@ -162,15 +198,30 @@ io.on('connection', function(socket) {
 
   client.on('auth_failure', function(session) {
 
-    var options = {
-      'method': 'POST',
-      'url': 'https://tallentor.com/api/default_server_auth_status',
-      'headers': {
-      },
-      formData: {
-        'status': 'Auth failure'
-      }
-    };
+    if(project_id){
+      var options = {
+        'method': 'POST',
+        'url': 'https://tallentor.com/api/project_server_auth_status',
+        'headers': {
+        },
+        formData: {
+          'status': 'Auth failure',
+          'project_id' : project_id
+        }
+      };
+    }else{
+      var options = {
+        'method': 'POST',
+        'url': 'https://tallentor.com/api/default_server_auth_status',
+        'headers': {
+        },
+        formData: {
+          'status': 'Auth failure'
+        }
+      };
+    
+    }
+
     request(options, function (error, response) {
       if (error) throw new Error(error);
       console.log(response.body);
@@ -180,15 +231,33 @@ io.on('connection', function(socket) {
   });
 
   client.on('disconnected', (reason) => {
-    var options = {
-      'method': 'POST',
-      'url': 'https://tallentor.com/api/default_server_auth_status',
-      'headers': {
-      },
-      formData: {
-        'status': 'Disconnected'
-      }
-    };
+
+    if(project_id){
+      var options = {
+        'method': 'POST',
+        'url': 'https://tallentor.com/api/project_server_auth_status',
+        'headers': {
+        },
+        formData: {
+          'status': 'Disconnected',
+          'project_id' : project_id
+        }
+      };
+    }else{
+      var options = {
+        'method': 'POST',
+        'url': 'https://tallentor.com/api/default_server_auth_status',
+        'headers': {
+        },
+        formData: {
+          'status': 'Disconnected'
+        }
+      };
+    
+    }
+
+
+   
     request(options, function (error, response) {
       if (error) throw new Error(error);
       console.log(response.body);
