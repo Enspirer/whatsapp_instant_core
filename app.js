@@ -20,7 +20,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 const widget_id = null;
-const project_id = null;
+const project_id = 1;
 
 app.use(express.json());
 app.use(express.urlencoded({
@@ -88,8 +88,8 @@ client.on('message', msg => {
         'type': 'WhatsApp',
         'email': 'null',
         'status': 'Pending',
-        'project_id': null,
-        'widget_id': null,
+        'project_id': 'unasign',
+        'widget_id': 'unasign',
         'facebook_user_name': 'null',
         'message':msg.body
       }
