@@ -71,7 +71,7 @@ client.on('message', msg => {
         'email': 'null',
         'status': 'Pending',
         'project_id': project_id,
-        'widget_id': widget_id,
+        'widget_id': 'unasign',
         'facebook_user_name': 'null',
         'message':msg.body
       }
