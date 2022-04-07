@@ -88,8 +88,8 @@ client.on('message', msg => {
         'type': 'WhatsApp',
         'email': 'null',
         'status': 'Pending',
-        'project_id': project_id,
-        'widget_id': widget_id,
+        'project_id': null,
+        'widget_id': null,
         'facebook_user_name': 'null',
         'message':msg.body
       }
